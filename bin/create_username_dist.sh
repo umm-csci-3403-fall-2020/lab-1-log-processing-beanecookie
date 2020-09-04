@@ -5,7 +5,7 @@ client=$1
 cd "$client" || exit
 
 #sort failed login data by username and put into new file
-sort -k 4 */failed_login_data.txt | \
+sort -k 4 -- */failed_login_data.txt | \
     awk -F "[: ]+" '{print $4}' | \
     uniq -c | \
     # putting usernames and # of tries into html \

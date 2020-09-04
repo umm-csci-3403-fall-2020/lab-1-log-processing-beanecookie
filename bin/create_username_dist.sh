@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+here=$(pwd)
 client=$1
 cd "$client" || exit
 
@@ -14,4 +15,4 @@ uniq -c sorted_user_data.txt > counted_user_data.txt
 awk -F "[: ]+" '{print  "data.addRow([\x27"$2"\x27, "$1"]);"}' counted_user_data.txt > user_addrow.txt
 
 #wrap the data and create the html file
-wrap_contents.sh user_addrow.txt html_components/username_dist username_dist.html
+"$here"/bin/wrap_contents.sh user_addrow.txt "$here"/html_components/username_dist username_dist.html

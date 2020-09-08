@@ -6,11 +6,12 @@ cd "$client" || exit
 
 #sorting the failed login data by IP address
 sort -k 5 -- */failed_login_data.txt | \
-	awk -F "[: ]+" '{print $5}' > sortedIp.txt
+	awk '{print $5}' > sortedIp.txt
 
 #using join and awk to print country code and occurrence
-join sortedIp.txt etc/country_IP_map.txt | \
-	awk -F "[: }+" '{print $2}' | \
+join sortedIp.txt "$here"/etc/country_IP_map.txt | \
+	awk '{print $2}' | \
+	sort | \
 	uniq -c | \
 	awk '{print "data.addRow([\x27"$2"\x27, "$1"]);"}' > country_addrow.txt
 
